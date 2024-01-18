@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  pentaho-db:
+    container_name: pentaho-db
+    image: postgres:9.4-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pentaho-pg-data:/var/lib/postgresql/data/pgdata
+
+  pentaho-server:
+    container_name: pentaho-server
+    image: t4data/docker-pentaho:9.4.0.0-343
+    restart: always
+    ports:
+      - 8099:8080
+    links:
+      - pentaho-db:pentaho-db
+    environment:
+      - PGHOST=pentaho-db
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+    volumes:
+      - /pentaho/files:/pentaho/files
+      - pentaho-logs:/opt/pentaho/server/pentaho-server/pentaho-solutions/system/logs/audit
+      - pentaho-logs:/opt/pentaho/server/pentaho-server/tomcat/logs
+
+volumes:
+  pentaho-logs:
+  pentaho-pg-data:
