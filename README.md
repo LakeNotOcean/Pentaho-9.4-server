@@ -1,6 +1,6 @@
 # Pentaho 9.4 Docker Image
 
-###### Based on work done by Jonathan DeMarks (https://gitlab.com/docker.public/pentaho-server)
+###### Based on work done by Miguel Neyra (https://gitlab.com/docker.public/pentaho-server)
 
 ## BUILD Image
 
